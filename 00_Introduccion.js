@@ -1,17 +1,17 @@
 // JavaScript quick examples for learning purposes
 
 // 1) Variables and data types
-const name = 'Alice';
+const firstName = 'Alice';
 let age = 25;
 const isStudent = true;
-console.log('Name:', name, 'Age:', age, 'Student?', isStudent);
+console.log('Name:', firstName, 'Age:', age, 'Student?', isStudent);
 
 // 2) Functions (declaration and arrow)
 function greet(person) {
 	return `Hello, ${person}!`;
 }
 const greetArrow = person => `Hi, ${person}!`;
-console.log(greet(name));
+console.log(greet(firstName));
 console.log(greetArrow('Bob'));
 
 // 3) Arrays and common methods
@@ -35,7 +35,7 @@ async function demoAsync() {
 	await wait(500);
 	console.log('Done waiting.');
 }
-demoAsync();
+void demoAsync();
 
 // 6) Error handling
 try {
@@ -70,3 +70,4 @@ fizzBuzz(15);
 // - Use === for comparison
 // - Prefer const, then let
 // - Keep functions small and pure when possible
+
