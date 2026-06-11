@@ -3,6 +3,7 @@
 function twoSum(nums, target) {
   const map = new Map();
   for (let i = 0; i < nums.length; i++) {
+    // Save the current value so we can find its pair in O(1) time later.
     const complement = target - nums[i];
     if (map.has(complement)) return [map.get(complement), i];
     map.set(nums[i], i);
@@ -53,6 +54,64 @@ console.log("isPalindrome('A man, a plan, a canal: Panama') ->", isPalindrome('A
 console.log('factorial(6) ->', factorial(6));
 console.log('mergeSortedArrays([1,3,5],[2,4,6]) ->', mergeSortedArrays([1,3,5],[2,4,6]));
 console.log('flattenArray([1,[2,[3,4],5],6]) ->', flattenArray([1,[2,[3,4],5],6]));
+
+// Simple browser view for the same exercises
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const examples = [
+      {
+        title: 'Two Sum',
+        input: 'twoSum([2,7,11,15], 9)',
+        output: JSON.stringify(twoSum([2,7,11,15], 9))
+      },
+      {
+        title: 'Reverse String',
+        input: "reverseString('hello')",
+        output: reverseString('hello')
+      },
+      {
+        title: 'Palindrome',
+        input: "isPalindrome('A man, a plan, a canal: Panama')",
+        output: String(isPalindrome('A man, a plan, a canal: Panama'))
+      },
+      {
+        title: 'Factorial',
+        input: 'factorial(6)',
+        output: String(factorial(6))
+      },
+      {
+        title: 'Merge Sorted Arrays',
+        input: 'mergeSortedArrays([1,3,5],[2,4,6])',
+        output: JSON.stringify(mergeSortedArrays([1,3,5],[2,4,6]))
+      },
+      {
+        title: 'Flatten Array',
+        input: 'flattenArray([1,[2,[3,4],5],6])',
+        output: JSON.stringify(flattenArray([1,[2,[3,4],5],6]))
+      }
+    ];
+
+    const app = document.getElementById('app');
+    if (!app) return;
+
+    app.innerHTML = `
+      <section class="hero">
+        <p class="eyebrow">JavaScript Review</p>
+        <h1>Ejercicios en vista web sencilla</h1>
+        <p class="subtitle">Cada tarjeta muestra el ejercicio, la entrada usada y el resultado calculado por JavaScript.</p>
+      </section>
+      <section class="grid">
+        ${examples.map(example => `
+          <article class="card">
+            <h2>${example.title}</h2>
+            <p><strong>Entrada:</strong> ${example.input}</p>
+            <p><strong>Salida:</strong> ${example.output}</p>
+          </article>
+        `).join('')}
+      </section>
+    `;
+  });
+}
 
 // Export functions for testing or reuse (Node.js)
 if (typeof module !== 'undefined' && module.exports) {
