@@ -58,6 +58,7 @@ console.log('flattenArray([1,[2,[3,4],5],6]) ->', flattenArray([1,[2,[3,4],5],6]
 // Simple browser view for the same exercises
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
+    // Construimos una lista de ejemplos para separar la lógica de los ejercicios de la vista.
     const examples = [
       {
         title: 'Two Sum',
@@ -94,21 +95,53 @@ if (typeof document !== 'undefined') {
     const app = document.getElementById('app');
     if (!app) return;
 
+    // La plantilla HTML usa clases semánticas para que el CSS pueda dar una presentación más clara.
     app.innerHTML = `
       <section class="hero">
-        <p class="eyebrow">JavaScript Review</p>
-        <h1>Ejercicios en vista web sencilla</h1>
-        <p class="subtitle">Cada tarjeta muestra el ejercicio, la entrada usada y el resultado calculado por JavaScript.</p>
+        <div class="hero-layout">
+          <div>
+            <p class="eyebrow">JavaScript Review</p>
+            <h1>Ejercicios en una vista web más limpia</h1>
+            <p class="subtitle">Cada tarjeta muestra el ejercicio, la entrada usada y el resultado calculado por JavaScript. La interfaz está pensada para leer rápido y con mejor contraste visual.</p>
+            <p class="hero-note">Vista alimentada desde el archivo de ejercicios para mantener la lógica en un solo lugar.</p>
+            <div class="chips" aria-label="Características de la vista">
+              <span class="chip">Diseño responsivo</span>
+              <span class="chip">Tarjetas con jerarquía</span>
+              <span class="chip">Salida visible</span>
+            </div>
+          </div>
+          <aside class="hero-panel" aria-label="Resumen rápido">
+            <h2>Resumen</h2>
+            <div class="stack">
+              <div class="stat">
+                <strong>${examples.length} ejercicios</strong>
+                <span>Casos de práctica organizados con resultado directo en pantalla.</span>
+              </div>
+              <div class="stat">
+                <strong>JavaScript puro</strong>
+                <span>Sin dependencias externas, para que el ejemplo sea fácil de abrir y estudiar.</span>
+              </div>
+              <div class="stat">
+                <strong>Lectura rápida</strong>
+                <span>El nuevo diseño separa entrada y salida para que la comparación sea inmediata.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
       </section>
       <section class="grid">
-        ${examples.map(example => `
+        ${examples.map((example, index) => `
           <article class="card">
-            <h2>${example.title}</h2>
-            <p><strong>Entrada:</strong> ${example.input}</p>
-            <p><strong>Salida:</strong> ${example.output}</p>
+            <div class="card-header">
+              <h2>${example.title}</h2>
+              <span class="card-badge">${String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <p><strong>Entrada</strong><code>${example.input}</code></p>
+            <p class="result"><strong>Salida</strong><code>${example.output}</code></p>
           </article>
         `).join('')}
       </section>
+      <p class="footer-note">Puedes abrir esta vista en el navegador y ver los resultados calculados al momento.</p>
     `;
   });
 }
