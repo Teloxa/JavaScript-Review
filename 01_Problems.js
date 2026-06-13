@@ -58,7 +58,7 @@ console.log('flattenArray([1,[2,[3,4],5],6]) ->', flattenArray([1,[2,[3,4],5],6]
 // Simple browser view for the same exercises
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
-    // Construimos una lista de ejemplos para separar la lógica de los ejercicios de la vista.
+    // Build a list of examples to separate the exercise logic from the view.
     const examples = [
       {
         title: 'Two Sum',
@@ -95,35 +95,35 @@ if (typeof document !== 'undefined') {
     const app = document.getElementById('app');
     if (!app) return;
 
-    // La plantilla HTML usa clases semánticas para que el CSS pueda dar una presentación más clara.
+    // The HTML template uses semantic classes so CSS can provide clearer presentation.
     app.innerHTML = `
       <section class="hero">
         <div class="hero-layout">
           <div>
             <p class="eyebrow">JavaScript Review</p>
-            <h1>Ejercicios en una vista web más limpia</h1>
-            <p class="subtitle">Cada tarjeta muestra el ejercicio, la entrada usada y el resultado calculado por JavaScript. La interfaz está pensada para leer rápido y con mejor contraste visual.</p>
-            <p class="hero-note">Vista alimentada desde el archivo de ejercicios para mantener la lógica en un solo lugar.</p>
-            <div class="chips" aria-label="Características de la vista">
-              <span class="chip">Diseño responsivo</span>
-              <span class="chip">Tarjetas con jerarquía</span>
-              <span class="chip">Salida visible</span>
+            <h1>Exercises in a cleaner web view</h1>
+            <p class="subtitle">Each card shows the exercise, the input used, and the result calculated by JavaScript. The interface is designed for fast reading and better visual contrast.</p>
+            <p class="hero-note">View populated from the exercises file to keep logic in one place.</p>
+            <div class="chips" aria-label="View features">
+              <span class="chip">Responsive design</span>
+              <span class="chip">Hierarchical cards</span>
+              <span class="chip">Visible output</span>
             </div>
           </div>
-          <aside class="hero-panel" aria-label="Resumen rápido">
-            <h2>Resumen</h2>
+          <aside class="hero-panel" aria-label="Quick summary">
+            <h2>Summary</h2>
             <div class="stack">
               <div class="stat">
-                <strong>${examples.length} ejercicios</strong>
-                <span>Casos de práctica organizados con resultado directo en pantalla.</span>
+                <strong>${examples.length} exercises</strong>
+                <span>Practice cases organized with direct results on screen.</span>
               </div>
               <div class="stat">
-                <strong>JavaScript puro</strong>
-                <span>Sin dependencias externas, para que el ejemplo sea fácil de abrir y estudiar.</span>
+                <strong>Pure JavaScript</strong>
+                <span>No external dependencies, so the example is easy to open and study.</span>
               </div>
               <div class="stat">
-                <strong>Lectura rápida</strong>
-                <span>El nuevo diseño separa entrada y salida para que la comparación sea inmediata.</span>
+                <strong>Fast reading</strong>
+                <span>The new design separates input and output for immediate comparison.</span>
               </div>
             </div>
           </aside>
@@ -136,12 +136,12 @@ if (typeof document !== 'undefined') {
               <h2>${example.title}</h2>
               <span class="card-badge">${String(index + 1).padStart(2, '0')}</span>
             </div>
-            <p><strong>Entrada</strong><code>${example.input}</code></p>
-            <p class="result"><strong>Salida</strong><code>${example.output}</code></p>
+            <p><strong>Input</strong><code>${example.input}</code></p>
+            <p class="result"><strong>Output</strong><code>${example.output}</code></p>
           </article>
         `).join('')}
       </section>
-      <p class="footer-note">Puedes abrir esta vista en el navegador y ver los resultados calculados al momento.</p>
+      <p class="footer-note">You can open this view in the browser and see the results calculated in real-time.</p>
     `;
   });
 }
