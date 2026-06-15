@@ -7,32 +7,38 @@ const examples = ref([
     {
         title: 'Two Sum',
         input: 'twoSum([2,7,11,15], 9)',
-        output: JSON.stringify(twoSum([2, 7, 11, 15], 9))
+        output: JSON.stringify(twoSum([2, 7, 11, 15], 9)),
+        code: twoSum.toString()
     },
     {
         title: 'Reverse String',
         input: "reverseString('hello')",
-        output: reverseString('hello')
+        output: reverseString('hello'),
+        code: reverseString.toString()
     },
     {
         title: 'Palindrome',
         input: "isPalindrome('A man, a plan, a canal: Panama')",
-        output: String(isPalindrome('A man, a plan, a canal: Panama'))
+        output: String(isPalindrome('A man, a plan, a canal: Panama')),
+        code: isPalindrome.toString()
     },
     {
         title: 'Factorial',
         input: 'factorial(6)',
-        output: String(factorial(6))
+        output: String(factorial(6)),
+        code: factorial.toString()
     },
     {
         title: 'Merge Sorted Arrays',
         input: 'mergeSortedArrays([1,3,5],[2,4,6])',
-        output: JSON.stringify(mergeSortedArrays([1, 3, 5], [2, 4, 6]))
+        output: JSON.stringify(mergeSortedArrays([1, 3, 5], [2, 4, 6])),
+        code: mergeSortedArrays.toString()
     },
     {
         title: 'Flatten Array',
         input: 'flattenArray([1,[2,[3,4],5],6])',
-        output: JSON.stringify(flattenArray([1, [2, [3, 4], 5], 6]))
+        output: JSON.stringify(flattenArray([1, [2, [3, 4], 5], 6])),
+        code: flattenArray.toString()
     }
 ]);
 </script>
