@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
   example: {
@@ -13,6 +13,17 @@ const props = defineProps({
 });
 
 const formattedIndex = computed(() => String(props.index + 1).padStart(2, '0'));
+const copied = ref(false);
+
+const copyCode = async () => {
+  try {
+    await navigator.clipboard.writeText(props.example.code);
+    copied.value = true;
+    setTimeout(() => { copied.value = false; }, 2000);
+  } catch (err) {
+    console.error('Failed to copy code: ', err);
+  }
+};
 </script>
 
 <template>
@@ -26,7 +37,12 @@ const formattedIndex = computed(() => String(props.index + 1).padStart(2, '0'));
     
     <details class="code-details">
       <summary>View Code</summary>
-      <pre><code>{{ example.code }}</code></pre>
+      <div class="code-wrapper">
+        <button class="copy-btn" @click="copyCode">
+          {{ copied ? 'Copied!' : 'Copy' }}
+        </button>
+        <pre><code>{{ example.code }}</code></pre>
+      </div>
     </details>
   </article>
 </template>
@@ -46,10 +62,30 @@ const formattedIndex = computed(() => String(props.index + 1).padStart(2, '0'));
   background: var(--surface);
   border-top: 1px solid var(--border);
 }
+.code-wrapper {
+  position: relative;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.copy-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
 .code-details pre {
   margin: 0;
-  padding: 1rem;
-  overflow-x: auto;
+  padding: 2.5rem 1rem 1rem 1rem;
+  overflow-x: hidden;
+  white-space: pre-wrap;
   font-size: 0.85rem;
 }
 </style>
