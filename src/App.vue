@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import ExerciseCard from './components/ExerciseCard.vue';
+import FloatingNav from './components/FloatingNav.vue';
 import { twoSum, reverseString, isPalindrome, factorial, mergeSortedArrays, flattenArray } from './utils/problems';
 
 const examples = ref([
@@ -80,8 +81,16 @@ const examples = ref([
         </section>
 
         <section class="grid">
-            <ExerciseCard v-for="(example, index) in examples" :key="index" :example="example" :index="index" />
+            <ExerciseCard 
+                v-for="(example, index) in examples" 
+                :key="index" 
+                :example="example" 
+                :index="index" 
+                :id="'exercise-' + index"
+            />
         </section>
+
+        <FloatingNav :examples="examples" />
 
         <p class="footer-note">You can open this view in the browser and see the results calculated in real-time.</p>
     </main>
