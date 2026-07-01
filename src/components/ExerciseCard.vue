@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
+import { reverseString } from '../utils/problems';
 
 const props = defineProps({
   example: {
@@ -14,6 +15,11 @@ const props = defineProps({
 
 const formattedIndex = computed(() => String(props.index + 1).padStart(2, '0'));
 const copied = ref(false);
+const playgroundInput = ref('Aprender JavaScript');
+const playgroundOutput = ref(reverseString(playgroundInput.value));
+const playgroundError = ref('');
+
+const isInteractive = computed(() => props.example.title === 'Reverse String');
 
 const copyCode = async () => {
   try {
@@ -23,6 +29,24 @@ const copyCode = async () => {
   } catch (err) {
     console.error('Failed to copy code: ', err);
   }
+};
+
+const runPlayground = () => {
+  const value = playgroundInput.value.trim();
+
+  if (!value) {
+    playgroundOutput.value = '';
+    playgroundError.value = 'Escribe un texto para invertirlo.';
+    return;
+  }
+
+  playgroundError.value = '';
+  playgroundOutput.value = reverseString(value);
+};
+
+const resetPlayground = () => {
+  playgroundInput.value = 'Aprender JavaScript';
+  runPlayground();
 };
 </script>
 
@@ -34,6 +58,25 @@ const copyCode = async () => {
     </div>
     <p><strong>Input</strong><code>{{ example.input }}</code></p>
     <p class="result"><strong>Output</strong><code>{{ example.output }}</code></p>
+
+    <section v-if="isInteractive" class="playground" aria-label="Interactive exercise">
+      <label class="playground-label" for="playground-input">Try it yourself</label>
+      <textarea
+        id="playground-input"
+        v-model="playgroundInput"
+        rows="3"
+        placeholder="Escribe un texto..."
+        @keyup.enter.ctrl="runPlayground"
+      ></textarea>
+
+      <div class="playground-actions">
+        <button class="playground-button" type="button" @click="runPlayground">Ejecutar</button>
+        <button class="playground-button secondary" type="button" @click="resetPlayground">Restablecer</button>
+      </div>
+
+      <p v-if="playgroundError" class="playground-error">{{ playgroundError }}</p>
+      <p v-else class="playground-result"><strong>Resultado:</strong> {{ playgroundOutput }}</p>
+    </section>
     
     <details class="code-details">
       <summary>View Code</summary>
@@ -64,6 +107,71 @@ const copyCode = async () => {
   background: var(--bg-alt);
   border-radius: 4px;
   overflow: hidden;
+}
+
+.playground {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.playground-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.playground textarea {
+  width: 100%;
+  min-height: 88px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem;
+  font: inherit;
+  background: var(--bg-alt);
+  color: var(--text);
+  outline: none;
+}
+
+.playground textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+}
+
+.playground-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.playground-button {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: white;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.playground-button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.playground-error {
+  margin-top: 0.85rem;
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.playground-result {
+  margin-top: 0.85rem;
 }
 .code-details summary {
   padding: 0.5rem 1rem;
