@@ -26,6 +26,14 @@ const user = { id: 1, username: 'coder', profile: { email: 'coder@example.com' }
 const { username, profile: { email } } = user;
 console.log('Username:', username, 'Email:', email);
 
+// 4.1) Spread/Rest operators, Optional Chaining, Nullish Coalescing
+const updatedUser = { ...user, role: 'admin' }; // Spread operator
+const { id, ...restDetails } = updatedUser; // Rest operator
+console.log('Updated User:', updatedUser, 'Rest Details:', restDetails);
+
+const userCity = user.profile?.address?.city ?? 'Unknown City'; // Optional Chaining & Nullish Coalescing
+console.log('User City:', userCity);
+
 // 5) Asynchronous: promises and async/await (simulated)
 function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
