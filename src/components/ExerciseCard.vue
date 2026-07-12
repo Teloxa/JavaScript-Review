@@ -15,9 +15,33 @@ const props = defineProps({
 const formattedIndex = computed(() => String(props.index + 1).padStart(2, '0'));
 const copied = ref(false);
 
-const copyCode = async () => {
+const copyTextFallback = (text) => {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'absolute';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
   try {
-    await navigator.clipboard.writeText(props.example.code);
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    return true;
+  } catch (e) {
+    document.body.removeChild(textarea);
+    return false;
+  }
+};
+
+const copyCode = async () => {
+  const text = props.example.code || '';
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const ok = copyTextFallback(text);
+      if (!ok) throw new Error('Fallback copy failed');
+    }
     copied.value = true;
     setTimeout(() => { copied.value = false; }, 2000);
   } catch (err) {
