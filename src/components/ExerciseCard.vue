@@ -67,6 +67,8 @@ const copyCode = async () => {
           :class="{ 'is-copied': copied }"
           @click="copyCode" 
           :title="copied ? 'Copied!' : 'Copy to clipboard'"
+          :aria-pressed="copied"
+          :aria-label="copied ? 'Code copied' : 'Copy code to clipboard'"
         >
           <svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -76,6 +78,7 @@ const copyCode = async () => {
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </button>
+        <span class="sr-only" aria-live="polite">{{ copied ? 'Copied code to clipboard' : '' }}</span>
         <pre><code>{{ example.code }}</code></pre>
       </div>
     </details>
@@ -135,5 +138,14 @@ const copyCode = async () => {
   overflow-x: hidden;
   white-space: pre-wrap;
   font-size: 0.85rem;
+}
+
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0; padding: 0; margin: -1px;
 }
 </style>
