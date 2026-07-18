@@ -1,8 +1,10 @@
 :root {
     color-scheme: light;
     --bg: #f2eadf;
+    --bg-alt: #f5f3ed;
     --panel: rgba(255, 250, 243, 0.9);
     --panel-strong: #fffdf8;
+    --surface: #faf8f3;
     --text: #172033;
     --muted: #5f6878;
     --accent: #1d4ed8;

@@ -56,8 +56,8 @@ const copyCode = async () => {
       <h2>{{ example.title }}</h2>
       <span class="card-badge">{{ formattedIndex }}</span>
     </div>
-    <p><strong>Input</strong><code>{{ example.input }}</code></p>
-    <p class="result"><strong>Output</strong><code>{{ example.output }}</code></p>
+    <p><strong>Input</strong> <code>{{ example.input }}</code></p>
+    <p class="result"><strong>Output</strong> <code>{{ example.output }}</code></p>
     
     <details class="code-details">
       <summary>View Code</summary>
