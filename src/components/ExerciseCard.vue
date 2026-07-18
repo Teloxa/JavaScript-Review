@@ -76,9 +76,9 @@ const copyCode = async () => {
         <span class="inline-block transition-transform group-open:rotate-90">></span>
         View Code
       </summary>
-      <div class="relative mt-4 rounded-lg bg-gray-900 p-4">
+      <div class="relative mt-4 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4 shadow-sm">
         <button 
-          class="absolute top-3 right-3 p-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md transition-colors"
+          class="absolute top-3 right-3 p-2 rounded-md border border-slate-200 bg-white text-slate-700 shadow-sm transition-colors hover:bg-slate-100"
           :class="copied ? 'bg-green-600 hover:bg-green-500' : ''"
           @click="copyCode" 
           :title="copied ? 'Copied!' : 'Copy to clipboard'"
@@ -93,7 +93,7 @@ const copyCode = async () => {
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </button>
-        <pre class="text-gray-100 text-xs overflow-x-auto"><code>{{ example.code }}</code></pre>
+        <pre class="pr-12 text-sm leading-6 text-slate-800 overflow-x-auto whitespace-pre-wrap break-words"><code>{{ example.code }}</code></pre>
         <span class="sr-only" aria-live="polite">{{ copied ? 'Copied code to clipboard' : '' }}</span>
       </div>
     </details>

@@ -99,5 +99,30 @@ const examples = ref([
         <FloatingNav :examples="examples" />
 
         <p class="text-center text-gray-600 text-sm mt-8">You can open this view in the browser and see the results calculated in real-time.</p>
+
+        <section class="relative overflow-hidden mt-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8 sm:p-10 text-white shadow-2xl">
+            <div class="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div class="max-w-2xl">
+                    <p class="text-xs font-bold uppercase tracking-[0.35em] text-cyan-300 mb-4">LeetCode Problem Solving</p>
+                    <h2 class="text-4xl sm:text-5xl font-black leading-tight max-w-xl">LeetCode Problem Solving</h2>
+                    <p class="mt-4 text-base sm:text-lg text-slate-200 max-w-2xl leading-relaxed">
+                        Review exercises, compare outputs, and open the full guide in a new window to keep studying without losing this view.
+                    </p>
+                </div>
+
+                <a
+                    href="https://leetcode.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-400 px-6 py-3 text-sm font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-cyan-300"
+                >
+                    Open LeetCode
+                    
+                </a>
+            </div>
+        </section>
     </main>
 </template>
