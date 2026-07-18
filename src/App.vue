@@ -45,42 +45,48 @@ const examples = ref([
 </script>
 
 <template>
-    <main class="page">
-        <section class="hero">
-            <div class="hero-layout">
-                <div>
-                    <p class="eyebrow">JavaScript Review</p>
-                    <h1>Exercises in a cleaner web view</h1>
-                    <p class="subtitle">Each card shows the exercise, the input used, and the result calculated by
-                        JavaScript. The interface is designed for fast reading and better visual contrast.</p>
-                    <p class="hero-note">View populated from the exercises file to keep logic in one place.</p>
-                    <div class="chips" aria-label="View features">
-                        <span class="chip">Responsive design</span>
-                        <span class="chip">Hierarchical cards</span>
-                        <span class="chip">Visible output</span>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <section class="relative overflow-hidden bg-white/80 border border-amber-200 rounded-3xl p-8 sm:p-10 shadow-lg backdrop-blur-md mb-8">
+            <div class="absolute -bottom-20 -right-32 w-64 h-64 bg-blue-100/20 rounded-full pointer-events-none"></div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
+                <div class="lg:col-span-2">
+                    <p class="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">JavaScript Review</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold mb-4 max-w-xs">Exercises in a cleaner web view</h1>
+                    <p class="text-gray-700 mb-4 max-w-lg leading-relaxed">Each card shows the exercise, the input used, and the result calculated by JavaScript. The interface is designed for fast reading and better visual contrast.</p>
+                    
+                    <div class="inline-flex items-center gap-3 p-3 rounded-full bg-blue-100/50 mb-6">
+                        <p class="text-sm text-gray-800">View populated from the exercises file to keep logic in one place.</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3" aria-label="View features">
+                        <span class="px-4 py-2 rounded-full bg-white/70 border border-amber-300 text-gray-700 text-sm font-semibold">Responsive design</span>
+                        <span class="px-4 py-2 rounded-full bg-white/70 border border-amber-300 text-gray-700 text-sm font-semibold">Hierarchical cards</span>
+                        <span class="px-4 py-2 rounded-full bg-white/70 border border-amber-300 text-gray-700 text-sm font-semibold">Visible output</span>
                     </div>
                 </div>
-                <aside class="hero-panel" aria-label="Quick summary">
-                    <h2>Summary</h2>
-                    <div class="stack">
-                        <div class="stat">
-                            <strong>{{ examples.length }} exercises</strong>
-                            <span>Practice cases organized with direct results on screen.</span>
+                
+                <aside class="bg-white/80 border border-amber-300 rounded-2xl p-6" aria-label="Quick summary">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-amber-600 mb-4 pb-3 border-b border-amber-200">Summary</h2>
+                    <div class="space-y-3">
+                        <div class="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-white border border-blue-200">
+                            <strong class="text-lg text-gray-900">{{ examples.length }} exercises</strong>
+                            <p class="text-sm text-gray-600 mt-1">Practice cases organized with direct results on screen.</p>
                         </div>
-                        <div class="stat">
-                            <strong>Pure JavaScript</strong>
-                            <span>No external dependencies, so the example is easy to open and study.</span>
+                        <div class="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-white border border-blue-200">
+                            <strong class="text-lg text-gray-900">Pure JavaScript</strong>
+                            <p class="text-sm text-gray-600 mt-1">No external dependencies, so the example is easy to open and study.</p>
                         </div>
-                        <div class="stat">
-                            <strong>Fast reading</strong>
-                            <span>The new design separates input and output for immediate comparison.</span>
+                        <div class="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-white border border-blue-200">
+                            <strong class="text-lg text-gray-900">Fast reading</strong>
+                            <p class="text-sm text-gray-600 mt-1">The new design separates input and output for immediate comparison.</p>
                         </div>
                     </div>
                 </aside>
             </div>
         </section>
 
-        <section class="grid">
+        <section class="space-y-6 mb-8">
             <ExerciseCard 
                 v-for="(example, index) in examples" 
                 :key="index" 
@@ -92,6 +98,6 @@ const examples = ref([
 
         <FloatingNav :examples="examples" />
 
-        <p class="footer-note">You can open this view in the browser and see the results calculated in real-time.</p>
+        <p class="text-center text-gray-600 text-sm mt-8">You can open this view in the browser and see the results calculated in real-time.</p>
     </main>
 </template>

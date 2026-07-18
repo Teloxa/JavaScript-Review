@@ -51,20 +51,35 @@ const copyCode = async () => {
 </script>
 
 <template>
-  <article class="card">
-    <div class="card-header">
-      <h2>{{ example.title }}</h2>
-      <span class="card-badge">{{ formattedIndex }}</span>
-    </div>
-    <p><strong>Input</strong> <code>{{ example.input }}</code></p>
-    <p class="result"><strong>Output</strong> <code>{{ example.output }}</code></p>
+  <article class="relative overflow-hidden bg-white border border-amber-200 rounded-2xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-amber-500"></div>
     
-    <details class="code-details">
-      <summary>View Code</summary>
-      <div class="code-wrapper">
+    <div class="flex items-center justify-between gap-3 mb-4">
+      <h2 class="text-xl font-bold text-gray-900">{{ example.title }}</h2>
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-bold">{{ formattedIndex }}</span>
+    </div>
+    
+    <div class="space-y-3 mb-6">
+      <p class="text-sm">
+        <strong class="text-amber-600">Input</strong> 
+        <code class="block mt-2 p-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 overflow-x-auto text-xs whitespace-pre-wrap break-words">{{ example.input }}</code>
+      </p>
+      
+      <p class="text-sm bg-gradient-to-br from-amber-50 to-white p-3 rounded-lg">
+        <strong class="text-amber-600">Output</strong> 
+        <code class="block mt-2 p-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 overflow-x-auto text-xs whitespace-pre-wrap break-words">{{ example.output }}</code>
+      </p>
+    </div>
+    
+    <details class="group border-t border-amber-200 pt-4">
+      <summary class="cursor-pointer font-semibold text-gray-800 hover:text-blue-600 transition-colors flex items-center gap-2">
+        <span class="inline-block transition-transform group-open:rotate-90">></span>
+        View Code
+      </summary>
+      <div class="relative mt-4 rounded-lg bg-gray-900 p-4">
         <button 
-          class="copy-btn" 
-          :class="{ 'is-copied': copied }"
+          class="absolute top-3 right-3 p-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md transition-colors"
+          :class="copied ? 'bg-green-600 hover:bg-green-500' : ''"
           @click="copyCode" 
           :title="copied ? 'Copied!' : 'Copy to clipboard'"
           :aria-pressed="copied"
@@ -78,74 +93,9 @@ const copyCode = async () => {
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </button>
+        <pre class="text-gray-100 text-xs overflow-x-auto"><code>{{ example.code }}</code></pre>
         <span class="sr-only" aria-live="polite">{{ copied ? 'Copied code to clipboard' : '' }}</span>
-        <pre><code>{{ example.code }}</code></pre>
       </div>
     </details>
   </article>
 </template>
-
-<style scoped>
-.code-details {
-  margin-top: 1rem;
-  background: var(--bg-alt);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.code-details summary {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 0.9rem;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-}
-.code-wrapper {
-  position: relative;
-}
-.copy-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-.copy-btn:hover {
-  background: var(--bg-alt);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
-}
-.copy-btn:active {
-  transform: translateY(0);
-}
-.copy-btn.is-copied {
-  color: #10b981;
-  border-color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-}
-.code-details pre {
-  margin: 0;
-  padding: 2.5rem 1rem 1rem 1rem;
-  overflow-x: hidden;
-  white-space: pre-wrap;
-  font-size: 0.85rem;
-}
-
-.sr-only {
-  position: absolute !important;
-  height: 1px; width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-  white-space: nowrap;
-  border: 0; padding: 0; margin: -1px;
-}
-</style>
