@@ -103,7 +103,7 @@ const examples = ref([
 
     <p class="mt-8 text-center text-sm text-gray-600">You can open this view in the browser and see the results calculated in real-time.</p>
 
-    <section class="relative mt-8 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8 text-white shadow-2xl sm:p-10">
+    <!-- <section class="relative mt-8 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8 text-white shadow-2xl sm:p-10">
       <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl"></div>
 
@@ -123,6 +123,6 @@ const examples = ref([
           Open LeetCode
         </RouterLink>
       </div>
-    </section>
+    </section> -->
   </main>
 </template>
