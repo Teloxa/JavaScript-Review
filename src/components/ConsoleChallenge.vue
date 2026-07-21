@@ -8,7 +8,7 @@
         <span class="title">Challenge #{{ challengeId }}</span>
       </div>
 
-      <textarea v-model="code" class="terminal-input" placeholder="// Escribe tu código aquí..." spellcheck="false"
+      <textarea v-model="code" class="terminal-input" placeholder="// Write your code here..." spellcheck="false"
         :disabled="state !== 'editing'"></textarea>
 
       <div class="terminal-actions">
@@ -22,20 +22,20 @@
     <!-- Confirmation Modal / Overlay -->
     <div v-if="state === 'confirming'" class="modal-overlay">
       <div class="modal-content">
-        <h3>¿Estás seguro?</h3>
-        <p>¿Quieres ver el resultado? Es mejor intentarlo al menos una vez por tu cuenta.</p>
+        <h3>Are you sure?</h3>
+        <p>Do you want to reveal the result? It is better to attempt it at least once on your own.</p>
         <div class="modal-actions">
-          <button @click="cancelReveal" class="btn-secondary">Volver a intentar</button>
-          <button @click="confirmReveal" class="btn-primary">Sí, mostrar resultado</button>
+          <button @click="cancelReveal" class="btn-secondary">Try again</button>
+          <button @click="confirmReveal" class="btn-primary">Yes, show result</button>
         </div>
       </div>
     </div>
 
     <!-- Revealed Result -->
     <div v-if="state === 'revealed'" class="result-container">
-      <h4>Resultado Esperado:</h4>
+      <h4>Expected Output:</h4>
       <pre class="expected-output">{{ expectedOutput }}</pre>
-      <button @click="resetChallenge" class="btn-secondary mt-2">Reiniciar</button>
+      <button @click="resetChallenge" class="btn-secondary mt-2">Reset</button>
     </div>
   </div>
 </template>
@@ -61,10 +61,10 @@ const errorMessage = ref('');
 
 // Anti-cheat Validation
 const validateCode = (input) => {
-  // Elimina comentarios (una y multiples lineas) y espacios en blanco
+  // Remove comments (single-line and multi-line) and whitespace
   const cleanCode = input.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim();
 
-  // Validacion basica: que tenga más de 5 caracteres y al menos algunas letras/numeros
+  // Basic validation: at least 5 characters and some alphanumeric content
   if (cleanCode.length < 5) return false;
   if (!/[a-zA-Z0-9]/.test(cleanCode)) return false;
 
@@ -75,11 +75,11 @@ const handleShowResults = () => {
   errorMessage.value = '';
 
   if (!validateCode(code.value)) {
-    errorMessage.value = 'Debes escribir un intento de código real antes de ver el resultado.';
+    errorMessage.value = 'You must write a real code attempt before revealing the result.';
     return;
   }
 
-  // Si pasa la validación, pasamos al estado de confirmación
+  // If validation passes, move to the confirmation state
   state.value = 'confirming';
 };
 

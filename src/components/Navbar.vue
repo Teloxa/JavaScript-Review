@@ -15,7 +15,7 @@ const solutionLinks = [
 ]
 
 const isActive = (targetPath) => route.path === targetPath
-const mobileMenuLabel = computed(() => (isMobileMenuOpen.value ? 'Cerrar menú' : 'Abrir menú'))
+const mobileMenuLabel = computed(() => (isMobileMenuOpen.value ? 'Close menu' : 'Open menu'))
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
@@ -35,7 +35,7 @@ const closeMobileMenu = () => {
         </div>
       </RouterLink>
 
-      <nav class="hidden items-center gap-2 lg:flex" aria-label="Navegación principal">
+      <nav class="hidden items-center gap-2 lg:flex" aria-label="Main navigation">
         <div class="group relative">
           <button
             type="button"
@@ -83,7 +83,7 @@ const closeMobileMenu = () => {
     <div v-show="isMobileMenuOpen" id="mobile-navigation" class="border-t border-slate-200 bg-white/95 px-4 py-4 backdrop-blur-xl lg:hidden">
       <div class="mx-auto flex max-w-6xl flex-col gap-4">
         <div class="rounded-3xl border border-slate-200 bg-slate-50 p-3">
-          <p class="px-3 pb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Soluciones</p>
+          <p class="px-3 pb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Solutions</p>
           <div class="grid gap-2">
             <RouterLink
               v-for="link in solutionLinks"

@@ -10,11 +10,11 @@
 
       <div class="mt-8 grid gap-4 sm:grid-cols-2">
         <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-          <h2 class="text-lg font-bold text-slate-950">Estado</h2>
+          <h2 class="text-lg font-bold text-slate-950">Status</h2>
           <p class="mt-2 text-sm leading-relaxed text-slate-600">Page prepared for future implementations of problems, solutions and filters.</p>
         </div>
         <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-          <h2 class="text-lg font-bold text-slate-950">Navegación</h2>
+          <h2 class="text-lg font-bold text-slate-950">Navigation</h2>
           <p class="mt-2 text-sm leading-relaxed text-slate-600">The Navbar already links here via Vue Router to keep the structure ready.</p>
         </div>
       </div>
