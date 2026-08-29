@@ -26,7 +26,7 @@ The project includes several classic programming algorithms and problems (locate
 - `src/utils/problems.js`: Contains the pure JavaScript functions that solve the exercises.
 - `src/App.vue`: The root component that structures the main page and passes the exercise data to the visual components.
 - `src/components/ExerciseCard.vue`: A UI component designed to individually display each exercise with visual contrast for inputs and outputs.
-- `00_Introduccion.js`: File with examples and fundamental JavaScript concepts.
+- `00_Introduction.js`: File with examples and fundamental JavaScript concepts.
 
 ## How to Run the Project
 
