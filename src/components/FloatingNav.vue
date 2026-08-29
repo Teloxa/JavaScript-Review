@@ -5,8 +5,18 @@ const props = defineProps({
   examples: {
     type: Array,
     required: true
+  },
+  challenges: {
+    type: Array,
+    default: () => []
+  },
+  currentView: {
+    type: String,
+    default: 'exercises'
   }
 });
+
+const emit = defineEmits(['switchView']);
 
 const activeIndex = ref(0);
 const isHovered = ref(false);
@@ -14,6 +24,18 @@ const isHovered = ref(false);
 let observer = null;
 
 onMounted(() => {
+  if (props.currentView === 'exercises') {
+    setupExerciseObserver();
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
+
+const setupExerciseObserver = () => {
   const options = {
     root: null,
     rootMargin: '0px',
@@ -36,19 +58,20 @@ onMounted(() => {
     const el = document.getElementById(`exercise-${index}`);
     if (el) observer.observe(el);
   });
-});
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect();
-  }
-});
+};
 
 const scrollTo = (index) => {
   const el = document.getElementById(`exercise-${index}`);
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' });
     activeIndex.value = index;
+  }
+};
+
+const switchView = (view) => {
+  emit('switchView', view);
+  if (view === 'exercises' && !observer) {
+    setTimeout(setupExerciseObserver, 100);
   }
 };
 </script>
@@ -69,24 +92,65 @@ const scrollTo = (index) => {
           <line x1="3" y1="12" x2="3.01" y2="12"></line>
           <line x1="3" y1="18" x2="3.01" y2="18"></line>
         </svg>
-        <span class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">{{ activeIndex + 1 }}</span>
+        <span class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white" v-if="currentView === 'exercises'">{{ activeIndex + 1 }}</span>
       </div>
 
       <!-- Expanded view -->
       <div v-show="isHovered" class="p-4">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-amber-600 mb-3 pb-2 border-b border-amber-200">Exercises</h3>
-        <ul class="space-y-1 max-h-64 overflow-y-auto">
-          <li v-for="(example, index) in examples" :key="index">
+        <!-- View Switcher -->
+        <div class="mb-4 pb-4 border-b border-amber-200">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-amber-600 mb-2">Views</h3>
+          <div class="flex gap-2">
             <button 
-              @click="scrollTo(index)" 
-              class="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-blue-100 transition-colors"
-              :class="activeIndex === index ? 'bg-blue-600 text-white font-semibold' : ''"
+              @click="switchView('exercises')"
+              class="flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition-colors"
+              :class="currentView === 'exercises' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             >
-              <span class="font-bold text-blue-600" :class="activeIndex === index ? 'text-white' : ''">{{ index + 1 }}.</span>
-              <span>{{ example.title }}</span>
+              Exercises
             </button>
-          </li>
-        </ul>
+            <button 
+              @click="switchView('challenges')"
+              class="flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition-colors"
+              :class="currentView === 'challenges' 
+                ? 'bg-purple-600 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            >
+              Challenges
+            </button>
+          </div>
+        </div>
+
+        <!-- Exercises List -->
+        <template v-if="currentView === 'exercises'">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-amber-600 mb-3 pb-2 border-b border-amber-200">Exercises</h3>
+          <ul class="space-y-1 max-h-64 overflow-y-auto">
+            <li v-for="(example, index) in examples" :key="index">
+              <button 
+                @click="scrollTo(index)" 
+                class="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-blue-100 transition-colors"
+                :class="activeIndex === index ? 'bg-blue-600 text-white font-semibold' : ''"
+              >
+                <span class="font-bold text-blue-600" :class="activeIndex === index ? 'text-white' : ''">{{ index + 1 }}.</span>
+                <span>{{ example.title }}</span>
+              </button>
+            </li>
+          </ul>
+        </template>
+
+        <!-- Challenges List -->
+        <template v-if="currentView === 'challenges'">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-purple-600 mb-3 pb-2 border-b border-purple-200">Challenges</h3>
+          <ul class="space-y-1 max-h-64 overflow-y-auto">
+            <li v-for="challenge in challenges" :key="challenge.id">
+              <div class="px-3 py-2 rounded-lg text-sm text-gray-700 bg-purple-50 border border-purple-200">
+                <span class="font-bold text-purple-600">{{ challenge.id }}.</span>
+                <span>{{ challenge.title }}</span>
+              </div>
+            </li>
+          </ul>
+        </template>
       </div>
     </div>
   </nav>
