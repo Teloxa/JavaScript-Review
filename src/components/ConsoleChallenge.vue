@@ -23,11 +23,7 @@
     <div v-if="state === 'confirming'" class="modal-overlay">
       <div class="modal-content">
         <h3>Are you sure?</h3>
-<<<<<<< HEAD
         <p>Do you want to see the result? It's better to try it at least once on your own.</p>
-=======
-        <p>Do you want to reveal the result? It is better to attempt it at least once on your own.</p>
->>>>>>> 26e7753ccbeb9b49f56b96a0e2aeba8c8112c2cb
         <div class="modal-actions">
           <button @click="cancelReveal" class="btn-secondary">Try again</button>
           <button @click="confirmReveal" class="btn-primary">Yes, show result</button>
@@ -37,11 +33,7 @@
 
     <!-- Revealed Result -->
     <div v-if="state === 'revealed'" class="result-container">
-<<<<<<< HEAD
       <h4>Expected Result:</h4>
-=======
-      <h4>Expected Output:</h4>
->>>>>>> 26e7753ccbeb9b49f56b96a0e2aeba8c8112c2cb
       <pre class="expected-output">{{ expectedOutput }}</pre>
       <button @click="resetChallenge" class="btn-secondary mt-2">Reset</button>
     </div>
@@ -69,17 +61,10 @@ const errorMessage = ref('');
 
 // Anti-cheat Validation
 const validateCode = (input) => {
-<<<<<<< HEAD
   // Remove comments (single and multi-line) and whitespace
   const cleanCode = input.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim();
 
   // Basic validation: must have more than 5 characters and at least some letters/numbers
-=======
-  // Remove comments (single-line and multi-line) and whitespace
-  const cleanCode = input.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim();
-
-  // Basic validation: at least 5 characters and some alphanumeric content
->>>>>>> 26e7753ccbeb9b49f56b96a0e2aeba8c8112c2cb
   if (cleanCode.length < 5) return false;
   if (!/[a-zA-Z0-9]/.test(cleanCode)) return false;
 
@@ -90,19 +75,11 @@ const handleShowResults = () => {
   errorMessage.value = '';
 
   if (!validateCode(code.value)) {
-<<<<<<< HEAD
     errorMessage.value = 'You must write a real code attempt before seeing the result.';
     return;
   }
 
   // If validation passes, move to confirmation state
-=======
-    errorMessage.value = 'You must write a real code attempt before revealing the result.';
-    return;
-  }
-
-  // If validation passes, move to the confirmation state
->>>>>>> 26e7753ccbeb9b49f56b96a0e2aeba8c8112c2cb
   state.value = 'confirming';
 };
 
