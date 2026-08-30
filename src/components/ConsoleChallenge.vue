@@ -33,7 +33,7 @@
     <div v-if="state === 'confirming'" class="modal-overlay">
       <div class="modal-content">
         <h3>Are you sure?</h3>
-        <p>Do you want to see the result? It's better to try it at least once on your own.</p>
+        <p>{{ confirmMessage }}</p>
         <div class="modal-actions">
           <button @click="cancelReveal" class="btn-secondary">Try again</button>
           <button @click="confirmReveal" class="btn-primary">Yes, show result</button>
@@ -56,11 +56,17 @@ import { ref } from 'vue';
 const props = defineProps({
   challengeId: {
     type: [String, Number],
-    required: true
+    required: true,
+    validator: (value) => value != null && value !== ''
   },
   expectedOutput: {
     type: String,
-    required: true
+    required: true,
+    validator: (value) => value.length > 0
+  },
+  confirmMessage: {
+    type: String,
+    default: 'Do you want to see the result? It\'s better to try it at least once on your own.'
   }
 });
 
@@ -81,7 +87,7 @@ const validateCode = (input) => {
   if (cleanCode.length < 5) return false;
   
   try {
-    // Valida que sea código JavaScript válido
+    // Validate by attempting to create a new function with the user's code
     new Function(cleanCode);
     return true;
   } catch {
@@ -117,6 +123,18 @@ const resetChallenge = () => {
   emit('challenge-reset', { challengeId: props.challengeId });
 };
 const emit = defineEmits(['challenge-completed', 'challenge-reset', 'code-changed']);
+
+const executeUserCode = () => {
+  try {
+    // create a new function with the user's code
+    const userFunction = new Function(code.value);
+    const result = userFunction();
+    return result;
+  } catch (error) {
+    errorMessage.value = `Error: ${error.message}`;
+    return null;
+  }
+};
 
 </script>
 
@@ -320,3 +338,12 @@ button:disabled {
 .error-msg {
   color: var(--color-error);
 }
+
+/**
+ * ConsoleChallenge - interactive coding challenge component
+
+ * @param {String|Number} challengeId - Unique identifier for the challenge
+ * @param {String} expectedOutput - Expected output of the challenge
+ * @emits {challenge-completed} - Emits when the result is revealed
+ * @emits {challenge-reset} - Emits when the challenge is reset
+ */
