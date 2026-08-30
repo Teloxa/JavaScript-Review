@@ -61,14 +61,16 @@ const errorMessage = ref('');
 
 // Anti-cheat Validation
 const validateCode = (input) => {
-  // Remove comments (single and multi-line) and whitespace
   const cleanCode = input.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim();
-
-  // Basic validation: must have more than 5 characters and at least some letters/numbers
   if (cleanCode.length < 5) return false;
-  if (!/[a-zA-Z0-9]/.test(cleanCode)) return false;
-
-  return true;
+  
+  try {
+    // Valida que sea código JavaScript válido
+    new Function(cleanCode);
+    return true;
+  } catch {
+    return false;
+  }
 };
 
 const handleShowResults = () => {
