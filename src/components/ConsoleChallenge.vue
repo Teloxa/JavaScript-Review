@@ -8,11 +8,21 @@
         <span class="title">Challenge #{{ challengeId }}</span>
       </div>
 
-      <textarea v-model="code" class="terminal-input" placeholder="// Write your code here..." spellcheck="false"
-        :disabled="state !== 'editing'"></textarea>
+      <textarea 
+        v-model="code" 
+        class="terminal-input" 
+        placeholder="// Write your code here..."
+        spellcheck="false"
+        :disabled="state !== 'editing'"
+        aria-label="Code editor for challenge"
+        aria-describedby="error-message"
+      ></textarea>
+
+      <span v-if="errorMessage" id="error-message" class="error-msg" role="alert">
+        {{ errorMessage }}
+      </span>
 
       <div class="terminal-actions">
-        <span v-if="errorMessage" class="error-msg">{{ errorMessage }}</span>
         <button @click="handleShowResults" class="btn-primary" :disabled="state !== 'editing'">
           Show Results
         </button>
@@ -55,7 +65,13 @@ const props = defineProps({
 });
 
 // State Management: 'editing' | 'confirming' | 'revealed'
-const state = ref('editing');
+const CHALLENGE_STATES = {
+  EDITING: 'editing',
+  CONFIRMING: 'confirming',
+  REVEALED: 'revealed'
+};
+
+const state = ref(CHALLENGE_STATES.EDITING);
 const code = ref('');
 const errorMessage = ref('');
 
@@ -82,22 +98,26 @@ const handleShowResults = () => {
   }
 
   // If validation passes, move to confirmation state
-  state.value = 'confirming';
+  state.value = CHALLENGE_STATES.CONFIRMING;
 };
 
 const confirmReveal = () => {
-  state.value = 'revealed';
+  state.value = CHALLENGE_STATES.REVEALED;
+  emit('challenge-completed', { challengeId: props.challengeId, code: code.value });
 };
 
 const cancelReveal = () => {
-  state.value = 'editing';
+  state.value = CHALLENGE_STATES.EDITING;
 };
 
 const resetChallenge = () => {
-  state.value = 'editing';
+  state.value = CHALLENGE_STATES.EDITING;
   code.value = '';
   errorMessage.value = '';
+  emit('challenge-reset', { challengeId: props.challengeId });
 };
+const emit = defineEmits(['challenge-completed', 'challenge-reset', 'code-changed']);
+
 </script>
 
 <style scoped>
@@ -288,3 +308,15 @@ button:disabled {
   margin-top: 16px;
 }
 </style>
+
+:root {
+  --color-error: #c2410c;
+  --color-success: #15803d;
+  --color-border: #dbe4f0;
+  --color-text: #0f172a;
+  --color-secondary: #475569;
+}
+
+.error-msg {
+  color: var(--color-error);
+}
