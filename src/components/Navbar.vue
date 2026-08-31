@@ -31,7 +31,7 @@ const closeMobileMenu = () => {
         </span>
         <div>
           <p class="text-sm font-semibold text-slate-500">JavaScript Review</p>
-          <p class="text-base font-bold text-slate-950">Navigation navabar</p>
+          <p class="text-base font-bold text-slate-950">Navigation Navbar</p>
         </div>
       </RouterLink>
 
@@ -41,7 +41,7 @@ const closeMobileMenu = () => {
             type="button"
             class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-950 hover:text-white focus:outline-none focus:ring-2 focus:ring-slate-950/20"
           >
-            Soluctions
+            Solutions
             <span aria-hidden="true">▾</span>
           </button>
 
